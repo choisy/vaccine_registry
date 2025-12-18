@@ -43,3 +43,57 @@ knitr::opts_chunk$set(margin1    = TRUE,
                       fig.width  = eps * 7) # default is 7 and maximum possible is 8.3
 ```
 
+## Constants
+
+The folder that contains the data files:
+
+```{r}
+OneDrive <- paste0("/Users/", Sys.getenv("USER"), "/Library/CloudStorage/",
+                    "OneDrive-OxfordUniversityClinicalResearchUnit/")
+
+path2data <- paste0(OneDrive, "data/vaccine registry Bac Kan/")
+```
+
+```{r include = FALSE}
+path2cache <- paste0(OneDrive, "GitHub/choisy/vaccine registry/cache/")
+if (! dir.exists(path2cache)) dir.create(path2cache)
+make_path <- function(x) paste0(path2cache, x)
+file_exists <- function(x) file.exists(make_path(x))
+readRDScache <- function(x) readRDS(make_path(x))
+saveRDScache <- function(object, file) saveRDS(object, make_path(file))
+```
+
+## Packages
+
+```{r}
+library(tibble)
+```
+
+## Functions
+
+```{r}
+size <- function(x) print(object.size(x), units = "auto")
+```
+
+```{r}
+readRDS2 <- function(x) as_tibble(readRDS(paste0(path2data, x)))
+```
+
+
+## Loading the data
+
+```{r}
+vacrecords <- readRDS2("backan_vacrecords.rds")
+pids <- readRDS2("backan_pids.rds")
+```
+
+```{r}
+dim(vacrecords)
+dim(pids)
+```
+
+```{r}
+size(vacrecords)
+size(pids)
+```
+
